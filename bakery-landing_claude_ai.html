@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Maison Pâtisserie – Bánh Ngọt Handmade</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&family=Cormorant+Garamond:ital,wght@1,300;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── CSS Variables ─── */
+    :root {
+      --cream:     #FDF8F0;
+      --cream-2:   #FAF3E7;
+      --latte:     #E8D5B7;
+      --caramel:   #C4956A;
+      --brown:     #8B5E3C;
+      --brown-dk:  #5C3D2E;
+      --rose:      #F2C4CE;
+      --rose-2:    #E8A5B4;
+      --blush:     #FDE8EE;
+      --sage:      #C5D5C0;
+      --text:      #3A2A1E;
+      --text-light:#7A5C48;
+      --white:     #FFFFFF;
+
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-italic:  'Cormorant Garamond', Georgia, serif;
+      --font-body:    'DM Sans', sans-serif;
+
+      --radius-sm:  8px;
+      --radius-md:  16px;
+      --radius-lg:  32px;
+      --radius-xl:  48px;
+
+      --shadow-sm:  0 2px 12px rgba(139,94,60,.08);
+      --shadow-md:  0 8px 32px rgba(139,94,60,.14);
+      --shadow-lg:  0 20px 60px rgba(139,94,60,.18);
+
+      --transition: all .35s cubic-bezier(.25,.8,.25,1);
+    }
+
+    /* ─── Reset & Base ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a  { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* ─── Scrollbar ─── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--caramel); border-radius: 99px; }
+
+    /* ─── Reusable ─── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section-tag {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: .7rem;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      background: rgba(196,149,106,.12);
+      padding: 6px 16px;
+      border-radius: 99px;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--brown-dk);
+    }
+    .section-title em {
+      font-style: italic;
+      color: var(--caramel);
+    }
+    .section-sub {
+      font-size: .975rem;
+      line-height: 1.75;
+      color: var(--text-light);
+      max-width: 520px;
+      margin-top: 12px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-body);
+      font-size: .875rem;
+      font-weight: 500;
+      letter-spacing: .04em;
+      padding: 14px 30px;
+      border-radius: 99px;
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+    }
+    .btn-primary {
+      background: var(--brown-dk);
+      color: var(--cream);
+      box-shadow: 0 4px 20px rgba(92,61,46,.3);
+    }
+    .btn-primary:hover {
+      background: var(--brown);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(92,61,46,.35);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--brown-dk);
+      border: 1.5px solid var(--brown-dk);
+    }
+    .btn-outline:hover {
+      background: var(--brown-dk);
+      color: var(--cream);
+      transform: translateY(-2px);
+    }
+    .btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+    /* ─── Decorative Divider ─── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 16px 0;
+    }
+    .divider span { flex: 1; height: 1px; background: var(--latte); }
+    .divider em {
+      font-family: var(--font-italic);
+      font-size: 1.1rem;
+      color: var(--caramel);
+    }
+
+    /* ═══════════════════════════════════════
+       HEADER / NAV
+    ═══════════════════════════════════════ */
+    #header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 0 24px;
+      background: rgba(253,248,240,.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(232,213,183,.5);
+      transition: var(--transition);
+    }
+    #header.scrolled {
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-icon {
+      width: 40px; height: 40px;
+      background: var(--brown-dk);
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+    }
+    .logo-icon svg { width: 22px; height: 22px; fill: var(--cream); }
+    .logo-text { line-height: 1.1; }
+    .logo-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--brown-dk);
+    }
+    .logo-sub {
+      font-size: .65rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--caramel);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+    .nav-links a {
+      font-size: .875rem;
+      font-weight: 500;
+      color: var(--text-light);
+      position: relative;
+      transition: color .25s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0; right: 0;
+      height: 2px;
+      background: var(--caramel);
+      border-radius: 99px;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .3s ease;
+    }
+    .nav-links a:hover { color: var(--brown-dk); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-cta { margin-left: 8px; }
+    .nav-cta .btn { padding: 10px 22px; font-size: .8rem; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--brown-dk);
+      border-radius: 99px;
+      transition: var(--transition);
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile Nav */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 72px; left: 0; right: 0;
+      background: var(--cream);
+      padding: 24px;
+      border-bottom: 1px solid var(--latte);
+      box-shadow: var(--shadow-md);
+      z-index: 999;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      transition: background .2s;
+    }
+    .mobile-nav a:hover { background: var(--cream-2); color: var(--brown-dk); }
+
+    /* ═══════════════════════════════════════
+       HERO SECTION
+    ═══════════════════════════════════════ */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 0;
+      padding-top: 72px;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-bg-blob {
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(242,196,206,.35) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-bg-blob-2 {
+      position: absolute;
+      bottom: -150px; left: -150px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(197,213,192,.25) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-content {
+      padding: 80px 24px 80px 64px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow-line { width: 32px; height: 2px; background: var(--caramel); border-radius: 99px; }
+    .hero-eyebrow span {
+      font-size: .72rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      font-weight: 500;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      line-height: 1.12;
+      font-weight: 700;
+      color: var(--brown-dk);
+      margin-bottom: 24px;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--caramel);
+      display: block;
+    }
+    .hero-sub {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text-light);
+      max-width: 420px;
+      margin-bottom: 40px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 52px;
+      padding-top: 32px;
+      border-top: 1px solid var(--latte);
+    }
+    .stat-item {}
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--brown-dk);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: .75rem;
+      color: var(--text-light);
+      margin-top: 4px;
+    }
+
+    /* Hero Image */
+    .hero-image-wrap {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      overflow: hidden;
+    }
+    .hero-image-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 8s ease;
+    }
+    .hero-image-wrap:hover img { transform: scale(1.03); }
+    .hero-badge {
+      position: absolute;
+      bottom: 48px; left: -28px;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 200px;
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .hero-badge-icon {
+      width: 44px; height: 44px;
+      background: var(--blush);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+    .hero-badge-text { line-height: 1.2; }
+    .hero-badge-main { font-family: var(--font-display); font-weight: 600; font-size: .95rem; color: var(--brown-dk); }
+    .hero-badge-sub  { font-size: .72rem; color: var(--text-light); }
+    .hero-tag {
+      position: absolute;
+      top: 64px; left: 40px;
+      background: var(--brown-dk);
+      color: var(--cream);
+      border-radius: 99px;
+      padding: 10px 20px;
+      font-size: .78rem;
+      letter-spacing: .06em;
+      font-weight: 500;
+      display: flex; align-items: center; gap: 8px;
+      box-shadow: var(--shadow-sm);
+    }
+    .hero-tag::before { content: '✦'; color: var(--rose); }
+
+    /* ═══════════════════════════════════════
+       MARQUEE STRIP
+    ═══════════════════════════════════════ */
+    .marquee-strip {
+      background: var(--brown-dk);
+      padding: 16px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .marquee-track {
+      display: inline-flex;
+      gap: 0;
+      animation: marquee 20s linear infinite;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .marquee-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 32px;
+      font-size: .78rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(253,248,240,.7);
+      font-weight: 500;
+    }
+    .marquee-dot { color: var(--rose); font-size: 1rem; }
+
+    /* ═══════════════════════════════════════
+       PRODUCTS SECTION
+    ═══════════════════════════════════════ */
+    #products {
+      padding: 100px 0;
+      background: var(--cream);
+    }
+    .products-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 60px;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .product-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      cursor: pointer;
+      position: relative;
+    }
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+    .product-card:nth-child(2) { margin-top: 28px; }
+    .product-card:nth-child(5) { margin-top: 28px; }
+    .product-img-wrap {
+      position: relative;
+      height: 240px;
+      overflow: hidden;
+    }
+    .product-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease;
+    }
+    .product-card:hover .product-img-wrap img { transform: scale(1.08); }
+    .product-label {
+      position: absolute;
+      top: 16px; left: 16px;
+      background: var(--white);
+      color: var(--brown-dk);
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 99px;
+      box-shadow: var(--shadow-sm);
+    }
+    .product-label.new { background: var(--rose); }
+    .product-label.popular { background: var(--latte); }
+    .product-fav {
+      position: absolute;
+      top: 16px; right: 16px;
+      width: 36px; height: 36px;
+      background: var(--white);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 1rem;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .product-fav:hover { transform: scale(1.15); }
+    .product-body {
+      padding: 20px;
+    }
+    .product-category {
+      font-size: .68rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+    .product-name {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--brown-dk);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .product-desc {
+      font-size: .82rem;
+      line-height: 1.65;
+      color: var(--text-light);
+      margin-bottom: 16px;
+    }
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .product-price {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--brown-dk);
+    }
+    .product-price span {
+      font-family: var(--font-body);
+      font-size: .75rem;
+      font-weight: 400;
+      color: var(--text-light);
+    }
+    .product-order-btn {
+      width: 36px; height: 36px;
+      background: var(--brown-dk);
+      color: var(--cream);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+    }
+    .product-order-btn:hover {
+      background: var(--caramel);
+      transform: scale(1.1) rotate(15deg);
+    }
+    .product-stars {
+      display: flex; gap: 2px; margin-bottom: 10px;
+    }
+    .product-stars span { color: #F4C430; font-size: .8rem; }
+
+    /* ═══════════════════════════════════════
+       ABOUT SECTION
+    ═══════════════════════════════════════ */
+    #about {
+      padding: 100px 0;
+      background: var(--cream-2);
+      position: relative;
+      overflow: hidden;
+    }
+    .about-deco {
+      position: absolute;
+      right: -100px; top: 50%;
+      transform: translateY(-50%);
+      width: 400px; height: 400px;
+      border: 60px solid rgba(232,213,183,.3);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-images {
+      position: relative;
+    }
+    .about-img-main {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      box-shadow: var(--shadow-lg);
+    }
+    .about-img-main img { width: 100%; height: 100%; object-fit: cover; }
+    .about-img-float {
+      position: absolute;
+      bottom: -32px; right: -32px;
+      width: 200px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      border: 6px solid var(--white);
+    }
+    .about-img-float img { width: 100%; height: 160px; object-fit: cover; }
+    .about-years {
+      position: absolute;
+      top: 24px; right: -24px;
+      background: var(--brown-dk);
+      color: var(--cream);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+    }
+    .about-years-num {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .about-years-label {
+      font-size: .7rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      opacity: .75;
+      margin-top: 4px;
+    }
+    .about-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 36px;
+    }
+    .about-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .about-feature-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: var(--blush);
+      display: grid;
+      place-items: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .about-feature-name {
+      font-weight: 600;
+      font-size: .875rem;
+      color: var(--brown-dk);
+      margin-bottom: 2px;
+    }
+    .about-feature-desc {
+      font-size: .78rem;
+      color: var(--text-light);
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════════════════
+       GALLERY SECTION
+    ═══════════════════════════════════════ */
+    #gallery {
+      padding: 100px 0;
+      background: var(--cream);
+    }
+    .gallery-header { text-align: center; margin-bottom: 48px; }
+    .gallery-header .section-sub { margin: 12px auto 0; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 240px 240px;
+      gap: 16px;
+    }
+    .gallery-item {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+    }
+    .gallery-item:first-child {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+    .gallery-item:nth-child(4) { grid-column: span 2; }
+    .gallery-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.07); }
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(92,61,46,.6) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity .35s;
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay-text {
+      color: var(--white);
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    /* ═══════════════════════════════════════
+       CONTACT SECTION
+    ═══════════════════════════════════════ */
+    #contact {
+      padding: 100px 0;
+      background: var(--cream-2);
+    }
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .contact-info {}
+    .contact-items { display: flex; flex-direction: column; gap: 28px; margin-top: 36px; }
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .contact-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      background: var(--blush);
+      display: grid;
+      place-items: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .contact-item-label {
+      font-size: .72rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .contact-item-value {
+      font-size: .95rem;
+      color: var(--brown-dk);
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    .contact-socials {
+      display: flex;
+      gap: 12px;
+      margin-top: 36px;
+    }
+    .social-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 99px;
+      font-size: .82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1.5px solid var(--latte);
+      color: var(--text);
+    }
+    .social-btn:hover {
+      border-color: var(--caramel);
+      color: var(--brown-dk);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+    .social-btn-icon { font-size: 1.1rem; }
+
+    /* Contact Form */
+    .contact-form-wrap {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      box-shadow: var(--shadow-md);
+    }
+    .contact-form-title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--brown-dk);
+      margin-bottom: 24px;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-label {
+      display: block;
+      font-size: .8rem;
+      font-weight: 500;
+      color: var(--text-light);
+      margin-bottom: 8px;
+      letter-spacing: .03em;
+    }
+    .form-input, .form-textarea {
+      width: 100%;
+      background: var(--cream);
+      border: 1.5px solid var(--latte);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      font-family: var(--font-body);
+      font-size: .9rem;
+      color: var(--text);
+      transition: border-color .25s, box-shadow .25s;
+      outline: none;
+    }
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--caramel);
+      box-shadow: 0 0 0 3px rgba(196,149,106,.15);
+    }
+    .form-textarea { min-height: 100px; resize: vertical; }
+    .form-btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 32px; right: 32px;
+      background: var(--brown-dk);
+      color: var(--cream);
+      padding: 14px 24px;
+      border-radius: var(--radius-sm);
+      font-size: .875rem;
+      box-shadow: var(--shadow-lg);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: var(--transition);
+      z-index: 9999;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* ═══════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════ */
+    #footer {
+      background: var(--brown-dk);
+      color: var(--cream);
+      padding: 60px 0 32px;
+    }
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-brand {}
+    .footer-logo-name {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 8px;
+    }
+    .footer-logo-tag {
+      font-size: .7rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--latte);
+      margin-bottom: 16px;
+    }
+    .footer-desc {
+      font-size: .82rem;
+      line-height: 1.75;
+      color: rgba(253,248,240,.6);
+      max-width: 260px;
+    }
+    .footer-col-title {
+      font-weight: 600;
+      font-size: .82rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--latte);
+      margin-bottom: 20px;
+    }
+    .footer-links { display: flex; flex-direction: column; gap: 12px; }
+    .footer-links a {
+      font-size: .85rem;
+      color: rgba(253,248,240,.65);
+      transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--cream); }
+    .footer-bottom {
+      border-top: 1px solid rgba(253,248,240,.1);
+      padding-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-copyright {
+      font-size: .8rem;
+      color: rgba(253,248,240,.45);
+    }
+    .footer-made {
+      font-size: .78rem;
+      color: rgba(253,248,240,.45);
+    }
+    .footer-made span { color: var(--rose-2); }
+
+    /* ─── Scroll-to-top Button ─── */
+    #scroll-top {
+      position: fixed;
+      bottom: 32px; left: 32px;
+      width: 44px; height: 44px;
+      background: var(--white);
+      border: 1.5px solid var(--latte);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 900;
+    }
+    #scroll-top.visible { opacity: 1; pointer-events: auto; }
+    #scroll-top:hover {
+      background: var(--brown-dk);
+      border-color: var(--brown-dk);
+      transform: translateY(-3px);
+    }
+    #scroll-top svg { width: 18px; height: 18px; transition: fill .2s; }
+    #scroll-top:hover svg { fill: var(--cream); }
+
+    /* ─── Fade-in animation ─── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up.delay-1 { transition-delay: .1s; }
+    .fade-up.delay-2 { transition-delay: .2s; }
+    .fade-up.delay-3 { transition-delay: .3s; }
+    .fade-up.delay-4 { transition-delay: .4s; }
+    .fade-up.delay-5 { transition-delay: .5s; }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .product-card:nth-child(2), .product-card:nth-child(5) { margin-top: 0; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+      .gallery-item:first-child { grid-column: span 2; height: 320px; }
+      .gallery-item:nth-child(4) { grid-column: span 1; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      #hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-content { padding: 60px 24px 40px; order: 2; }
+      .hero-image-wrap { height: 55vw; min-height: 280px; order: 1; }
+      .hero-badge { display: none; }
+      .hero-stats { gap: 20px; }
+      .about-inner { grid-template-columns: 1fr; gap: 48px; }
+      .about-img-float { right: 0; }
+      .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+      .products-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item:first-child { height: 220px; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .hero-title { font-size: 2.2rem; }
+      .about-features { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item:first-child { grid-column: span 1; grid-row: span 1; }
+      .gallery-item:nth-child(4) { grid-column: span 1; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .contact-form-wrap { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ───────────────────────────── HEADER ───────────────────────────── -->
+<header id="header">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C8 2 4 5 4 9c0 2.4 1.1 4.5 2.8 5.9L6 20h12l-.8-5.1C18.9 13.5 20 11.4 20 9c0-4-4-7-8-7zm0 2c3.3 0 6 2.2 6 5s-2.7 5-6 5-6-2.2-6-5 2.7-5 6-5zm-2 8l1 4h2l1-4"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <div class="logo-name">La Maison</div>
+        <div class="logo-sub">Pâtisserie</div>
+      </div>
+    </a>
+    <nav class="nav-links">
+      <a href="#hero">Trang chủ</a>
+      <a href="#products">Sản phẩm</a>
+      <a href="#about">Giới thiệu</a>
+      <a href="#contact">Liên hệ</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#contact" class="btn btn-primary">Đặt bánh ngay</a>
+    </div>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Nav -->
+<nav class="mobile-nav" id="mobileNav">
+  <a href="#hero"     onclick="closeMobileNav()">🏠 Trang chủ</a>
+  <a href="#products" onclick="closeMobileNav()">🎂 Sản phẩm</a>
+  <a href="#about"    onclick="closeMobileNav()">✨ Giới thiệu</a>
+  <a href="#gallery"  onclick="closeMobileNav()">📸 Gallery</a>
+  <a href="#contact"  onclick="closeMobileNav()">📞 Liên hệ</a>
+</nav>
+
+<!-- ───────────────────────────── HERO ───────────────────────────── -->
+<section id="hero">
+  <div class="hero-bg-blob"></div>
+  <div class="hero-bg-blob-2"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span>Handmade với tình yêu từ 2018</span>
+    </div>
+    <h1 class="hero-title">
+      Mỗi chiếc bánh<br>
+      là một <em>tác phẩm</em>
+    </h1>
+    <p class="hero-sub">
+      Chúng tôi tạo ra những chiếc bánh không chỉ đẹp mắt mà còn đậm đà hương vị — 
+      từ nguyên liệu tươi sạch, được làm thủ công với sự tận tâm từng ngày.
+    </p>
+    <div class="hero-actions">
+      <a href="#products" class="btn btn-primary">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 4h14l-1.5 9H6.5L5 4zM5 4H3M9 19a1 1 0 11-2 0 1 1 0 012 0zm10 0a1 1 0 11-2 0 1 1 0 012 0z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Xem sản phẩm
+      </a>
+      <a href="#about" class="btn btn-outline">Câu chuyện của chúng tôi</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Khách hàng hài lòng</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">30+</div>
+        <div class="stat-label">Loại bánh đặc sắc</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">6+</div>
+        <div class="stat-label">Năm kinh nghiệm</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-image-wrap">
+    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1000&q=85&auto=format&fit=crop" alt="Bánh sinh nhật đẹp" />
+    <div class="hero-tag">✦ Giao hàng tận nơi tại TP.HCM</div>
+    <div class="hero-badge">
+      <div class="hero-badge-icon">🎂</div>
+      <div class="hero-badge-text">
+        <div class="hero-badge-main">Đặt hàng hôm nay</div>
+        <div class="hero-badge-sub">Giao bánh trong 24h</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── MARQUEE ───────────────────────────── -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <!-- items × 2 for seamless loop -->
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Bánh sinh nhật</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Bánh cưới</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Bánh mousse</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Bánh tart</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Cupcake</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Macaron</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Cheesecake</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Bánh custom</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Bánh sinh nhật</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Bánh cưới</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Bánh mousse</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Bánh tart</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Cupcake</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Macaron</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Cheesecake</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Bánh custom</span>
+  </div>
+</div>
+
+<!-- ───────────────────────────── PRODUCTS ───────────────────────────── -->
+<section id="products">
+  <div class="container">
+    <div class="products-header">
+      <div>
+        <span class="section-tag">Thực đơn</span>
+        <h2 class="section-title">Sản phẩm <em>nổi bật</em></h2>
+        <p class="section-sub">Được làm mới mỗi ngày, từng chiếc bánh là sự kết hợp hoàn hảo giữa thẩm mỹ và hương vị.</p>
+      </div>
+      <a href="#contact" class="btn btn-outline" style="flex-shrink:0">Xem tất cả →</a>
+    </div>
+
+    <div class="products-grid">
+
+      <!-- Card 1 -->
+      <div class="product-card fade-up">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=600&q=80&auto=format&fit=crop" alt="Bánh sinh nhật hoa" />
+          <span class="product-label popular">🔥 Bán chạy</span>
+          <button class="product-fav" title="Yêu thích">🤍</button>
+        </div>
+        <div class="product-body">
+          <div class="product-category">Bánh sinh nhật</div>
+          <div class="product-name">Garden Bloom Cake</div>
+          <div class="product-stars">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            <span style="color:var(--text-light);margin-left:4px;font-size:.75rem;">(48)</span>
+          </div>
+          <p class="product-desc">Bánh bơ vani phủ hoa tươi handmade, trang trí tinh tế theo phong cách vườn hoa. Phù hợp mọi dịp đặc biệt.</p>
+          <div class="product-footer">
+            <div class="product-price">350.000đ <span>/ chiếc</span></div>
+            <button class="product-order-btn" onclick="showToast('Đã thêm vào giỏ hàng! 🎂')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="product-card fade-up delay-1">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1557979619-445218c7b7a6?w=600&q=80&auto=format&fit=crop" alt="Cheesecake" />
+          <span class="product-label new">✨ Mới</span>
+          <button class="product-fav">🤍</button>
+        </div>
+        <div class="product-body">
+          <div class="product-category">Cheesecake</div>
+          <div class="product-name">Strawberry Bliss Cheesecake</div>
+          <div class="product-stars">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span style="color:#ddd">★</span>
+            <span style="color:var(--text-light);margin-left:4px;font-size:.75rem;">(32)</span>
+          </div>
+          <p class="product-desc">Cheesecake kem phô mai nhẹ, phủ lớp dâu tây tươi ngọt ngào. Giòn bên ngoài, mịn bên trong.</p>
+          <div class="product-footer">
+            <div class="product-price">280.000đ <span>/ chiếc</span></div>
+            <button class="product-order-btn" onclick="showToast('Đã thêm vào giỏ hàng! 🍓')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="product-card fade-up delay-2">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=600&q=80&auto=format&fit=crop" alt="Cupcakes" />
+          <button class="product-fav">🤍</button>
+        </div>
+        <div class="product-body">
+          <div class="product-category">Cupcake</div>
+          <div class="product-name">Pastel Dream Cupcakes</div>
+          <div class="product-stars">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            <span style="color:var(--text-light);margin-left:4px;font-size:.75rem;">(61)</span>
+          </div>
+          <p class="product-desc">Set 6 cupcake màu sắc pastel ngọt ngào, trang trí hoa kem tinh tế. Lý tưởng cho tiệc sinh nhật trẻ em.</p>
+          <div class="product-footer">
+            <div class="product-price">180.000đ <span>/ hộp 6</span></div>
+            <button class="product-order-btn" onclick="showToast('Đã thêm vào giỏ hàng! 🧁')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="product-card fade-up delay-3">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&q=80&auto=format&fit=crop" alt="Macaron" />
+          <span class="product-label popular">💝 Yêu thích</span>
+          <button class="product-fav">🤍</button>
+        </div>
+        <div class="product-body">
+          <div class="product-category">Macaron</div>
+          <div class="product-name">French Macaron Collection</div>
+          <div class="product-stars">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            <span style="color:var(--text-light);margin-left:4px;font-size:.75rem;">(89)</span>
+          </div>
+          <p class="product-desc">Hộp 12 macaron Pháp chính thống với 6 hương vị: vani, cà phê, chanh dây, matcha, hoa hồng, socola.</p>
+          <div class="product-footer">
+            <div class="product-price">220.000đ <span>/ hộp 12</span></div>
+            <button class="product-order-btn" onclick="showToast('Đã thêm vào giỏ hàng! 🫐')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="product-card fade-up delay-4">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=600&q=80&auto=format&fit=crop" alt="Bánh mousse" />
+          <span class="product-label new">🌸 Mới</span>
+          <button class="product-fav">🤍</button>
+        </div>
+        <div class="product-body">
+          <div class="product-category">Mousse</div>
+          <div class="product-name">Rose Lychee Mousse</div>
+          <div class="product-stars">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            <span style="color:var(--text-light);margin-left:4px;font-size:.75rem;">(27)</span>
+          </div>
+          <p class="product-desc">Mousse hoa hồng và vải thiều nhẹ bông mịn màng, phủ mirror glaze óng ánh. Thanh mát và thơm ngát.</p>
+          <div class="product-footer">
+            <div class="product-price">310.000đ <span>/ chiếc</span></div>
+            <button class="product-order-btn" onclick="showToast('Đã thêm vào giỏ hàng! 🌸')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="product-card fade-up delay-5">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=600&q=80&auto=format&fit=crop" alt="Bánh tart" />
+          <button class="product-fav">🤍</button>
+        </div>
+        <div class="product-body">
+          <div class="product-category">Bánh Tart</div>
+          <div class="product-name">Golden Egg Tart</div>
+          <div class="product-stars">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span style="color:#ddd">★</span>
+            <span style="color:var(--text-light);margin-left:4px;font-size:.75rem;">(44)</span>
+          </div>
+          <p class="product-desc">Tart trứng custard truyền thống, vỏ bánh giòn bơ thơm, nhân kem trứng mịn ngọt. Thưởng thức nóng là ngon nhất.</p>
+          <div class="product-footer">
+            <div class="product-price">25.000đ <span>/ cái</span></div>
+            <button class="product-order-btn" onclick="showToast('Đã thêm vào giỏ hàng! 🥧')">+</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── ABOUT ───────────────────────────── -->
+<section id="about">
+  <div class="about-deco"></div>
+  <div class="container">
+    <div class="about-inner">
+
+      <div class="about-images">
+        <div class="about-img-main fade-up">
+          <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80&auto=format&fit=crop" alt="Làm bánh thủ công" />
+        </div>
+        <div class="about-img-float">
+          <img src="https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=400&q=80&auto=format&fit=crop" alt="Nguyên liệu tươi" />
+        </div>
+        <div class="about-years">
+          <div class="about-years-num">6+</div>
+          <div class="about-years-label">Năm đam mê</div>
+        </div>
+      </div>
+
+      <div class="fade-up delay-2">
+        <span class="section-tag">Câu chuyện của chúng tôi</span>
+        <h2 class="section-title">Làm bằng tay,<br><em>từ trái tim</em></h2>
+        <div class="divider"><span></span><em>✦</em><span></span></div>
+        <p class="section-sub">
+          La Maison Pâtisserie được thành lập năm 2018 từ niềm đam mê nấu nướng và tình yêu với những chiếc bánh ngọt ngào. 
+          Chúng tôi tin rằng mỗi chiếc bánh không chỉ là món ăn, mà còn là kỷ niệm — được tạo ra với sự tỉ mỉ và tình cảm.
+        </p>
+        <p class="section-sub" style="margin-top:12px">
+          Tất cả sản phẩm đều được làm thủ công hàng ngày, sử dụng nguyên liệu tươi sạch được chọn lọc kỹ càng từ những nhà cung cấp uy tín trong nước và nhập khẩu.
+        </p>
+
+        <div class="about-features">
+          <div class="about-feature">
+            <div class="about-feature-icon">🌾</div>
+            <div>
+              <div class="about-feature-name">Nguyên liệu tươi sạch</div>
+              <div class="about-feature-desc">Chọn lọc kỹ từ nguồn cung uy tín</div>
+            </div>
+          </div>
+          <div class="about-feature">
+            <div class="about-feature-icon">👐</div>
+            <div>
+              <div class="about-feature-name">100% Handmade</div>
+              <div class="about-feature-desc">Mỗi chiếc bánh làm thủ công tỉ mỉ</div>
+            </div>
+          </div>
+          <div class="about-feature">
+            <div class="about-feature-icon">🎨</div>
+            <div>
+              <div class="about-feature-name">Thiết kế theo yêu cầu</div>
+              <div class="about-feature-desc">Custom theo theme và sở thích</div>
+            </div>
+          </div>
+          <div class="about-feature">
+            <div class="about-feature-icon">🚚</div>
+            <div>
+              <div class="about-feature-name">Giao hàng tận nơi</div>
+              <div class="about-feature-desc">Đảm bảo bánh đến tay nguyên vẹn</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── GALLERY ───────────────────────────── -->
+<section id="gallery">
+  <div class="container">
+    <div class="gallery-header">
+      <span class="section-tag">Bộ sưu tập</span>
+      <h2 class="section-title">Gallery <em>hình ảnh</em></h2>
+      <p class="section-sub">Những khoảnh khắc ngọt ngào được ghi lại từ xưởng bánh của chúng tôi.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item fade-up">
+        <img src="https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?w=800&q=80&auto=format&fit=crop" alt="Gallery 1" />
+        <div class="gallery-overlay"><span class="gallery-overlay-text">Wedding Collection 2024</span></div>
+      </div>
+      <div class="gallery-item fade-up delay-1">
+        <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&q=80&auto=format&fit=crop" alt="Gallery 2" />
+        <div class="gallery-overlay"><span class="gallery-overlay-text">Macaron Series</span></div>
+      </div>
+      <div class="gallery-item fade-up delay-2">
+        <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=600&q=80&auto=format&fit=crop" alt="Gallery 3" />
+        <div class="gallery-overlay"><span class="gallery-overlay-text">Chocolate Fantasy</span></div>
+      </div>
+      <div class="gallery-item fade-up delay-3">
+        <img src="https://images.unsplash.com/photo-1607478900766-efe13248b125?w=800&q=80&auto=format&fit=crop" alt="Gallery 4" />
+        <div class="gallery-overlay"><span class="gallery-overlay-text">Birthday Special</span></div>
+      </div>
+      <div class="gallery-item fade-up delay-4">
+        <img src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=600&q=80&auto=format&fit=crop" alt="Gallery 5" />
+        <div class="gallery-overlay"><span class="gallery-overlay-text">Floral Artisan</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── CONTACT ───────────────────────────── -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="fade-up">
+        <span class="section-tag">Liên hệ</span>
+        <h2 class="section-title">Hãy nói chuyện<br><em>cùng chúng tôi</em></h2>
+        <p class="section-sub">Đặt bánh cho dịp đặc biệt của bạn hoặc đơn giản là ghé thăm xưởng bánh của chúng tôi!</p>
+
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div>
+              <div class="contact-item-label">Địa chỉ</div>
+              <div class="contact-item-value">123 Nguyễn Trãi, Phường 2,<br>Quận 5, TP. Hồ Chí Minh</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div>
+              <div class="contact-item-label">Điện thoại</div>
+              <div class="contact-item-value">0901 234 567</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">🕐</div>
+            <div>
+              <div class="contact-item-label">Giờ mở cửa</div>
+              <div class="contact-item-value">Thứ 2 – Chủ nhật: 8:00 – 21:00</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-socials">
+          <a class="social-btn" href="#" onclick="showToast('Đang chuyển đến Facebook 📘')">
+            <span class="social-btn-icon">📘</span> Facebook
+          </a>
+          <a class="social-btn" href="#" onclick="showToast('Đang chuyển đến Instagram 📸')">
+            <span class="social-btn-icon">📸</span> Instagram
+          </a>
+          <a class="social-btn" href="#" onclick="showToast('Nhắn tin qua Zalo 💬')">
+            <span class="social-btn-icon">💬</span> Zalo
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-form-wrap fade-up delay-2">
+        <div class="contact-form-title">✉️ Gửi yêu cầu đặt bánh</div>
+        <div class="form-group">
+          <label class="form-label">Họ và tên</label>
+          <input class="form-input" type="text" placeholder="Nguyễn Văn A" id="f-name" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Số điện thoại</label>
+          <input class="form-input" type="tel" placeholder="0901 234 567" id="f-phone" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Loại bánh & dịp đặc biệt</label>
+          <input class="form-input" type="text" placeholder="VD: Bánh sinh nhật, ngày 15/6" id="f-cake" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Ghi chú thêm</label>
+          <textarea class="form-textarea" placeholder="Mô tả thêm về yêu cầu của bạn, màu sắc, chủ đề..." id="f-note"></textarea>
+        </div>
+        <button class="btn btn-primary form-btn" onclick="submitForm()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Gửi yêu cầu
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── FOOTER ───────────────────────────── -->
+<footer id="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo-name">La Maison Pâtisserie</div>
+        <div class="footer-logo-tag">Handmade Bakery · Since 2018</div>
+        <p class="footer-desc">
+          Chúng tôi làm bánh với tình yêu và sự tỉ mỉ mỗi ngày, mang đến những khoảnh khắc ngọt ngào cho mọi gia đình Việt.
+        </p>
+      </div>
+      <div>
+        <div class="footer-col-title">Danh mục</div>
+        <div class="footer-links">
+          <a href="#products">Bánh sinh nhật</a>
+          <a href="#products">Bánh cưới</a>
+          <a href="#products">Mousse & Tart</a>
+          <a href="#products">Cupcake</a>
+          <a href="#products">Macaron</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Thông tin</div>
+        <div class="footer-links">
+          <a href="#about">Về chúng tôi</a>
+          <a href="#gallery">Thư viện ảnh</a>
+          <a href="#contact">Liên hệ</a>
+          <a href="#">Chính sách đổi trả</a>
+          <a href="#">Hướng dẫn bảo quản</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Kết nối</div>
+        <div class="footer-links">
+          <a href="#">📘 Facebook</a>
+          <a href="#">📸 Instagram</a>
+          <a href="#">💬 Zalo OA</a>
+          <a href="#">▶️ TikTok</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copyright">© 2024 La Maison Pâtisserie. Tất cả quyền được bảo lưu.</div>
+      <div class="footer-made">Làm với <span>♥</span> tại TP. Hồ Chí Minh</div>
+    </div>
+  </div>
+</footer>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Scroll to top -->
+<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Lên đầu trang">
+  <svg viewBox="0 0 24 24" fill="var(--brown-dk)"><path d="M12 19V5M5 12l7-7 7 7" stroke="var(--brown-dk)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+</button>
+
+<script>
+  /* ── Header scroll effect ── */
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 20);
+    document.getElementById('scroll-top').classList.toggle('visible', window.scrollY > 400);
+  });
+
+  /* ── Mobile nav ── */
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+  });
+  function closeMobileNav() {
+    hamburger.classList.remove('open');
+    mobileNav.classList.remove('open');
+  }
+
+  /* ── Toast ── */
+  let toastTimer;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  /* ── Favourite toggle ── */
+  document.querySelectorAll('.product-fav').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      btn.textContent = btn.textContent === '🤍' ? '❤️' : '🤍';
+    });
+  });
+
+  /* ── Form submit ── */
+  function submitForm() {
+    const name  = document.getElementById('f-name').value.trim();
+    const phone = document.getElementById('f-phone').value.trim();
+    if (!name || !phone) {
+      showToast('⚠️ Vui lòng nhập tên và số điện thoại');
+      return;
+    }
+    document.getElementById('f-name').value  = '';
+    document.getElementById('f-phone').value = '';
+    document.getElementById('f-cake').value  = '';
+    document.getElementById('f-note').value  = '';
+    showToast('✅ Yêu cầu đã được gửi! Chúng tôi sẽ liên hệ sớm.');
+  }
+
+  /* ── Intersection Observer: fade-up ── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  /* ── Smooth anchor scroll (offset for fixed header) ── */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href');
+      if (id === '#') return;
+      const target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      const top = target.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>
